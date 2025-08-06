@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบสอบถาม Interactive - English Korat Language School</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .navigation {
+            background: #34495e;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .nav-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .nav-button.active {
+            background: #e74c3c;
+        }
+        
+        .progress-section {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            flex: 1;
+        }
+        
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.85em;
+        }
+        
+        .answered {
+            color: #27ae60;
+        }
+        
+        .unanswered {
+            color: #e74c3c;
+        }
+        
+        .total {
+            color: #3498db;
+        }
+        
+        .questionnaire-section {
+            padding: 30px 20px;
+        }
+        
+        .controls-section {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .add-question-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .add-question-btn:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .filter-btn.active {
+            background: #3498db;
+        }
+        
+        .category {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 20px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-header:hover {
+            background: linear-gradient(135deg, #2980b9, #21618c);
+        }
+        
+        .category-header h3 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        
+        .category-header p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .category-toggle {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3em;
+            transition: transform 0.3s ease;
+        }
+        
+        .category.collapsed .category-toggle {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        
+        .questions-list {
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .category.collapsed .questions-list {
+            display: none;
+        }
+        
+        .question-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .question-item.answered {
+            border-left: 4px solid #27ae60;
+            background: linear-gradient(135deg, #f0f8f0 0%, #fff 100%);
+        }
+        
+        .question-item.unanswered {
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .question-item.critical.unanswered {
+            border-left: 4px solid #e74c3c;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+        }
+        
+        .question-item.important.unanswered {
+            border-left: 4px solid #f39c12;
+            background: linear-gradient(135deg, #fffbf0 0%, #fff 100%);
+        }
+        
+        .question-header {
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .question-checkbox {
+            margin-top: 5px;
+            transform: scale(1.2);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .question-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .question-text {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            cursor: pointer;
+            word-wrap: break-word;
+        }
+        
+        .question-description {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: 8px;
+            white-space: nowrap;
+        }
+        
+        .priority-critical {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .priority-important {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .priority-normal {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .question-answer {
+            padding: 0 15px 15px;
+            display: none;
+        }
+        
+        .question-item.answered .question-answer {
+            display: block;
+        }
+        
+        .answer-input {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95em;
+            resize: vertical;
+        }
+        
+        .answer-input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .question-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #95a5a6;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        
+        .action-btn:hover {
+            background: #f0f0f0;
+            color: #2c3e50;
+        }
+        
+        .delete-btn:hover {
+            color: #e74c3c;
+        }
+        
+        .save-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .save-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1.3em;
+        }
+        
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #95a5a6;
+        }
+        
+        .close:hover {
+            color: #e74c3c;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95em;
+        }
+        
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .modal-actions {
+            text-align: right;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .status-indicator {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .status-answered {
+            background: #27ae60;
+        }
+        
+        .status-unanswered {
+            background: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .navigation {
+                padding: 10px 15px;
+            }
+            
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 0.85em;
+                margin: 3px;
+            }
+            
+            .progress-section {
+                padding: 15px;
+            }
+            
+            .progress-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-number {
+                font-size: 1.5em;
+            }
+            
+            .controls-section {
+                padding: 15px;
+            }
+            
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .add-question-btn {
+                min-width: auto;
+                margin-bottom: 10px;
+            }
+            
+            .filter-controls {
+                justify-content: center;
+            }
+            
+            .filter-btn {
+                padding: 6px 10px;
+                font-size: 0.8em;
+            }
+            
+            .questionnaire-section {
+                padding: 20px 15px;
+            }
+            
+            .category-header {
+                padding: 12px 15px;
+            }
+            
+            .category-header h3 {
+                font-size: 1.2em;
+            }
+            
+            .category-header p {
+                font-size: 0.85em;
+            }
+            
+            .questions-list {
+                padding: 15px;
+            }
+            
+            .question-header {
+                padding: 12px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .question-checkbox {
+                align-self: flex-start;
+            }
+            
+            .question-actions {
+                position: relative;
+                top: auto;
+                right: auto;
+                justify-content: flex-end;
+                margin-top: 10px;
+            }
+            
+            .save-btn {
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                border-radius: 8px;
+                padding: 12px;
+                font-size: 0.95em;
+            }
+            
+            .modal {
+                padding: 5px;
+            }
+            
+            .modal-content {
+                margin: 10px auto;
+                padding: 20px;
+                width: 100%;
+                max-height: calc(100vh - 20px);
+            }
+            
+            .priority-badge {
+                font-size: 0.65em;
+                padding: 2px 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .progress-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .question-text {
+                font-size: 0.95em;
+            }
+            
+            .question-description {
+                font-size: 0.85em;
+            }
+            
+            .modal-header h3 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-clipboard-question"></i> แบบสอบถาม Interactive</h1>
+            <p>English Korat Language School - ระบบจัดการคำถามแบบครบวงจร</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button" onclick="showSection('packages')">
+                <i class="fas fa-box"></i> แพ็คเกจ & ราคา
+            </button>
+            <button class="nav-button active" onclick="showSection('questionnaire')">
+                <i class="fas fa-clipboard-question"></i> แบบสอบถาม
+            </button>
+        </div>
+        
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <div class="stat-number answered" id="answeredCount">0</div>
+                    <div class="stat-label">ตอบแล้ว</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number unanswered" id="unansweredCount">18</div>
+                    <div class="stat-label">ยังไม่ตอบ</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number total" id="totalCount">18</div>
+                    <div class="stat-label">ทั้งหมด</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" style="color: #9b59b6;" id="progressPercent">0%</div>
+                    <div class="stat-label">ความคืบหน้า</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <div class="controls-row">
+                <button class="add-question-btn" onclick="openAddQuestionModal()">
+                    <i class="fas fa-plus"></i> เพิ่มคำถามใหม่
+                </button>
+            </div>
+            
+            <div class="controls-row">
+                <div class="filter-controls">
+                    <span style="margin-right: 10px;">แสดง:</span>
+                    <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+                    <button class="filter-btn" data-filter="answered">ตอบแล้ว</button>
+                    <button class="filter-btn" data-filter="unanswered">ยังไม่ตอบ</button>
+                    <button class="filter-btn" data-filter="critical">Critical</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questionnaire Section -->
+        <div class="questionnaire-section" id="questionnaireSection">
+            <!-- Categories and questions will be loaded here -->
+        </div>
+    </div>
+    
+    <!-- Save Button -->
+    <button class="save-btn" onclick="saveAllAnswers()">
+        <i class="fas fa-save"></i> บันทึกทั้งหมด
+    </button>
+    
+    <!-- Add Question Modal -->
+    <div id="addQuestionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>เพิ่มคำถามใหม่</h3>
+                <span class="close" onclick="closeAddQuestionModal()">&times;</span>
+            </div>
+            
+            <div class="form-group">
+                <label>หมวดหมู่</label>
+                <select id="newQuestionCategory">
+                    <option value="business">ข้อมูลพื้นฐานธุรกิจ</option>
+                    <option value="teaching">ระบบการเรียนการสอน</option>
+                    <option value="online">ระบบเรียนออนไลน์</option>
+                    <option value="data">การจัดการข้อมูล</option>
+                    <option value="finance">ระบบการเงิน</option>
+                    <option value="api">API และระบบภายนอก</option>
+                    <option value="special">ความต้องการพิเศษ</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>คำถาม</label>
+                <input type="text" id="newQuestionText" placeholder="พิมพ์คำถามที่ต้องการเพิ่ม">
+            </div>
+            
+            <div class="form-group">
+                <label>คำอธิบาย</label>
+                <textarea id="newQuestionDescription" placeholder="คำอธิบายเพิ่มเติมหรือรายละเอียดของคำถาม"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>ระดับความสำคัญ</label>
+                <select id="newQuestionPriority">
+                    <option value="normal">Normal</option>
+                    <option value="important">Important</option>
+                    <option value="critical">Critical</option>
+                </select>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeAddQuestionModal()">ยกเลิก</button>
+                <button class="btn btn-primary" onclick="addNewQuestion()">เพิ่มคำถาม</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default questions data
+        let questionsData = {
+            business: {
+                name: "ข้อมูลพื้นฐานธุรกิจ",
+                description: "ข้อมูลเกี่ยวกับโครงสร้างและขนาดของธุรกิจ",
+                icon: "fas fa-building",
+                color: "linear-gradient(135deg, #3498db, #2980b9)",
+                questions: [
+                    {
+                        id: 1,
+                        text: "ใช้งานกี่สาขา? ถ้า 2 สาขาคือใช้ฐานข้อมูลเดียวกันหรือคนละตัว?",
+                        description: "กำหนดสถาปัตยกรรมระบบ - Multi-tenant หรือ Single database with branch separation",
+                        priority: "critical",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 2,
+                        text: "ช่วงอายุผู้เรียนเป็นยังไง? (เด็ก/วัยรุ่น/ผู้ใหญ่)",
+                        description: "ส่งผลต่อการออกแบบ UI/UX และระบบการแจ้งเตือนผู้ปกครอง",
+                        priority: "important",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 3,
+                        text: "Domain มีแล้วมั้ย? หรือต้องจดทะเบียนใหม่?",
+                        description: "วางแผนการ setup infrastructure และ SSL certificate",
+                        priority: "normal",
+                        answered: false,
+                        answer: ""
+                    }
+                ]
+            },
+            teaching: {
+                name: "ระบบการเรียนการสอน",
+                description: "รูปแบบการจัดการเรียนการสอนและการประเมินผล",
+                icon: "fas fa-chalkboard-teacher",
+                color: "linear-gradient(135deg, #27ae60, #219a52)",
+                questions: [
+                    {
+                        id: 4,
+                        text: "จัดคอร์สเรียนยังไง? รู้ผลระดับการสอบแล้วจัดกลุ่มเด็กยังไง?",
+                        description: "ต้องเข้าใจ logic การจัดกลุ่มนักเรียน - ตามระดับ? ตามอายุ? ตามเวลาที่ว่าง?",
+                        priority: "critical",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 5,
+                        text: "รายงานผลการเรียน มีรายละเอียดอย่างไร?",
+                        description: "ต้องทราบรูปแบบการประเมิน - มีคะแนน? การให้เกรด? ความคิดเห็นครู? ส่งให้ผู้ปกครองยังไง?",
+                        priority: "important",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 6,
+                        text: "จ่ายไม่ครบ ไม่ให้เรียนเกินชม (แล้วคิดยังไง?)",
+                        description: "ระบบจะบล็อกการเข้าเรียนยังไง? เช็คเวลาเข้าเรียนจริง? แจ้งเตือนยังไง?",
+                        priority: "critical",
+                        answered: false,
+                        answer: ""
+                    }
+                ]
+            },
+            online: {
+                name: "ระบบเรียนออนไลน์",
+                description: "การจัดการคลาสออนไลน์และการติดตามการเข้าเรียน",
+                icon: "fas fa-laptop",
+                color: "linear-gradient(135deg, #9b59b6, #8e44ad)",
+                questions: [
+                    {
+                        id: 7,
+                        text: "ตอนนี้เช็คชื่อในคลาสออนไลน์ยังไง?",
+                        description: "เข้าใจวิธีการปัจจุบัน - ครูเช็คเอง? ใช้ Zoom attendance? Manual record?",
+                        priority: "important",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 8,
+                        text: "เช็คยังไงว่าเด็กเข้าหรือไม่เข้าเรียนออนไลน์?",
+                        description: "ระบบต้องสามารถ integrate กับ Zoom เพื่อดึงข้อมูล attendance หรือมีวิธีอื่น?",
+                        priority: "important",
+                        answered: false,
+                        answer: ""
+                    }
+                ]
+            },
+            data: {
+                name: "การจัดการข้อมูล",
+                description: "ข้อมูลเดิมและการ migrate เข้าระบบใหม่",
+                icon: "fas fa-database",
+                color: "linear-gradient(135deg, #e67e22, #d35400)",
+                questions: [
+                    {
+                        id: 9,
+                        text: "การเก็บข้อมูลเก่าเป็นยังไง? (คอร์ส, นักเรียน, ครู)",
+                        description: "ต้องดูข้อมูลจริงเพื่อวางแผน data migration - Excel? Google Sheets? Database? Paper records?",
+                        priority: "critical",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 10,
+                        text: "มีข้อมูลประวัติการเรียนย้อนหลังกี่ปี?",
+                        description: "กำหนดขอบเขตการ migrate ข้อมูลเก่า และการ backup",
+                        priority: "normal",
+                        answered: false,
+                        answer: ""
+                    }
+                ]
+            },
+            finance: {
+                name: "ระบบการเงิน",
+                description: "การคำนวณค่าจ้าง คอมมิชชั่น และระบบเช็คสลิป",
+                icon: "fas fa-money-bill-wave",
+                color: "linear-gradient(135deg, #e74c3c, #c0392b)",
+                questions: [
+                    {
+                        id: 11,
+                        text: "การคำนวณค่าคอมมิชชั่นจากบิลมัดจำ - คิดยังไงบ้าง?",
+                        description: "% คอมมิชชั่น, เงื่อนไขการจ่าย, คำนวณจากยอดไหน (gross/net), มีหัก tax มั้ย?",
+                        priority: "critical",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 12,
+                        text: "ระบบคำนวณค่าคอมพนักงาน - มีตำแหน่งอะไรบ้าง?",
+                        description: "Sale, Admin, ครู - แต่ละตำแหน่งคิดคอมมิชชั่นต่างกันมั้ย? มี base salary มั้ย?",
+                        priority: "important",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 13,
+                        text: "เช็คสลิป - ต้องเช็คอะไรบ้าง?",
+                        description: "เช็คธนาคาร, จำนวนเงิน, เวลา, ชื่อผู้โอน - ระบบ auto-match หรือ manual approve?",
+                        priority: "important",
+                        answered: false,
+                        answer: ""
+                    }
+                ]
+            },
+            api: {
+                name: "API และระบบภายนอก",
+                description: "การเชื่อมต่อกับระบบที่มีอยู่แล้ว",
+                icon: "fas fa-plug",
+                color: "linear-gradient(135deg, #34495e, #2c3e50)",
+                questions: [
+                    {
+                        id: 14,
+                        text: "Schedulista จะยังใช้อยู่มั้ย? Wave ล่ะ?",
+                        description: "ต้องทราบแน่ชัด - จะ integrate ด้วยหรือใช้ระบบใหม่แทน? มี API access มั้ย?",
+                        priority: "critical",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 15,
+                        text: "LINE Official Account มีแล้วมั้ย? ต้องการใช้ account เดิมหรือสร้างใหม่?",
+                        description: "วางแผนการ setup LINE messaging API และ webhook",
+                        priority: "normal",
+                        answered: false,
+                        answer: ""
+                    }
+                ]
+            },
+            special: {
+                name: "ความต้องการพิเศษ",
+                description: "ฟีเจอร์เพิ่มเติมและข้อกำหนดพิเศษ",
+                icon: "fas fa-star",
+                color: "linear-gradient(135deg, #16a085, #1abc9c)",
+                questions: [
+                    {
+                        id: 16,
+                        text: "ต้องการระบบ backup ข้อมูลยังไง? รายวัน? รายสัปดาห์?",
+                        description: "วางแผนระบบสำรองข้อมูลและ disaster recovery",
+                        priority: "normal",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 17,
+                        text: "ต้องการ mobile app หรือ responsive website เพียงพอ?",
+                        description: "กำหนดรูปแบบการพัฒนาสำหรับอุปกรณ์มือถือ",
+                        priority: "normal",
+                        answered: false,
+                        answer: ""
+                    },
+                    {
+                        id: 18,
+                        text: "มี peak time การใช้งานช่วงไหน? (เวลา registration, ชำระเงิน)",
+                        description: "วางแผน server capacity และการจัดการ traffic สูง",
+                        priority: "normal",
+                        answered: false,
+                        answer: ""
+                    }
+                ]
+            }
+        };
+
+        let currentFilter = 'all';
+        let nextQuestionId = 19;
+        const currentUser = 'b6428259';
+
+        // Initialize the questionnaire
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuestionsFromStorage();
+            renderQuestionnaire();
+            updateProgress();
+            setupEventListeners();
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    renderQuestionnaire();
+                });
+            });
+        }
+
+        // Load questions from localStorage
+        function loadQuestionsFromStorage() {
+            const saved = localStorage.getItem(`korat-questionnaire-data-${currentUser}`);
+            if (saved) {
+                questionsData = JSON.parse(saved);
+                // Update nextQuestionId
+                let maxId = 0;
+                Object.values(questionsData).forEach(category => {
+                    category.questions.forEach(q => {
+                        if (q.id > maxId) maxId = q.id;
+                    });
+                });
+                nextQuestionId = maxId + 1;
+            }
+        }
+
+        // Save questions to localStorage
+        function saveQuestionsToStorage() {
+            localStorage.setItem(`korat-questionnaire-data-${currentUser}`, JSON.stringify(questionsData));
+        }
+
+        // Render the questionnaire
+        function renderQuestionnaire() {
+            const container = document.getElementById('questionnaireSection');
+            container.innerHTML = '';
+
+            Object.entries(questionsData).forEach(([categoryKey, category]) => {
+                const filteredQuestions = category.questions.filter(question => {
+                    switch(currentFilter) {
+                        case 'answered':
+                            return question.answered;
+                        case 'unanswered':
+                            return !question.answered;
+                        case 'critical':
+                            return question.priority === 'critical';
+                        default:
+                            return true;
+                    }
+                });
+
+                if (filteredQuestions.length === 0 && currentFilter !== 'all') {
+                    return;
+                }
+
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                categoryDiv.innerHTML = `
+                    <div class="category-header" style="background: ${category.color}" onclick="toggleCategory('${categoryKey}')">
+                        <h3><i class="${category.icon}"></i> ${category.name}</h3>
+                        <p>${category.description}</p>
+                        <div class="category-toggle"><i class="fas fa-chevron-up"></i></div>
+                    </div>
+                    <div class="questions-list" id="${categoryKey}-questions">
+                        ${filteredQuestions.map((question, index) => `
+                            <div class="question-item ${question.answered ? 'answered' : 'unanswered'} ${question.priority}" 
+                                 data-question-id="${question.id}">
+                                <div class="question-header">
+                                    <input type="checkbox" class="question-checkbox" 
+                                           ${question.answered ? 'checked' : ''} 
+                                           onchange="toggleQuestion(${question.id})">
+                                    <div class="question-content">
+                                        <div class="question-text" onclick="toggleQuestion(${question.id})">
+                                            <span class="priority-badge priority-${question.priority}">${question.priority.toUpperCase()}</span>
+                                            ${question.text}
+                                        </div>
+                                        <div class="question-description">
+                                            ${question.description}
+                                        </div>
+                                    </div>
+                                    <div class="question-actions">
+                                        <button class="action-btn" onclick="editQuestion(${question.id})" title="แก้ไข">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn delete-btn" onclick="deleteQuestion(${question.id})" title="ลบ">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="question-answer">
+                                    <textarea class="answer-input" 
+                                              placeholder="พิมพ์คำตอบของคำถามนี้..." 
+                                              onchange="updateAnswer(${question.id}, this.value)"
+                                              oninput="updateAnswer(${question.id}, this.value)">${question.answer}</textarea>
+                                </div>
+                                <div class="status-indicator ${question.answered ? 'status-answered' : 'status-unanswered'}">
+                                    <i class="fas ${question.answered ? 'fa-check' : 'fa-question'}"></i>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(categoryDiv);
+            });
+        }
+
+        // Navigation functions
+        function showSection(section) {
+            if (section === 'packages') {
+                window.location.href = 'index.html';
+            }
+            // If questionnaire is selected, we're already on the right page
+        }
+
+        // Toggle category visibility
+        function toggleCategory(categoryKey) {
+            const category = document.querySelector(`[id="${categoryKey}-questions"]`).closest('.category');
+            category.classList.toggle('collapsed');
+        }
+
+        // Toggle question answered status
+        function toggleQuestion(questionId) {
+            // Find and update the question
+            Object.values(questionsData).forEach(category => {
+                const question = category.questions.find(q => q.id === questionId);
+                if (question) {
+                    question.answered = !question.answered;
+                    if (!question.answered) {
+                        question.answer = '';
+                    }
+                }
+            });
+            
+            saveQuestionsToStorage();
+            renderQuestionnaire();
+            updateProgress();
+        }
+
+        // Update answer
+        function updateAnswer(questionId, answer) {
+            Object.values(questionsData).forEach(category => {
+                const question = category.questions.find(q => q.id === questionId);
+                if (question) {
+                    question.answer = answer;
+                    if (answer.trim()) {
+                        question.answered = true;
+                    }
+                }
+            });
+            
+            saveQuestionsToStorage();
+            updateProgress();
+        }
+
+        // Update progress
+        function updateProgress() {
+            let totalQuestions = 0;
+            let answeredQuestions = 0;
+
+            Object.values(questionsData).forEach(category => {
+                totalQuestions += category.questions.length;
+                answeredQuestions += category.questions.filter(q => q.answered).length;
+            });
+
+            document.getElementById('totalCount').textContent = totalQuestions;
+            document.getElementById('answeredCount').textContent = answeredQuestions;
+            document.getElementById('unansweredCount').textContent = totalQuestions - answeredQuestions;
+            document.getElementById('progressPercent').textContent = 
+                totalQuestions > 0 ? Math.round((answeredQuestions / totalQuestions) * 100) + '%' : '0%';
+        }
+
+        // Open add question modal
+        function openAddQuestionModal() {
+            document.getElementById('addQuestionModal').style.display = 'block';
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close add question modal
+        function closeAddQuestionModal() {
+            document.getElementById('addQuestionModal').style.display = 'none';
+            // Restore body scrolling
+            document.body.style.overflow = 'auto';
+            // Clear form
+            document.getElementById('newQuestionText').value = '';
+            document.getElementById('newQuestionDescription').value = '';
+            document.getElementById('newQuestionCategory').value = 'business';
+            document.getElementById('newQuestionPriority').value = 'normal';
+        }
+
+        // Add new question
+        function addNewQuestion() {
+            const category = document.getElementById('newQuestionCategory').value;
+            const text = document.getElementById('newQuestionText').value.trim();
+            const description = document.getElementById('newQuestionDescription').value.trim();
+            const priority = document.getElementById('newQuestionPriority').value;
+
+            if (!text) {
+                alert('กรุณาพิมพ์คำถาม');
+                return;
+            }
+
+            const newQuestion = {
+                id: nextQuestionId++,
+                text: text,
+                description: description,
+                priority: priority,
+                answered: false,
+                answer: ''
+            };
+
+            questionsData[category].questions.push(newQuestion);
+            saveQuestionsToStorage();
+            renderQuestionnaire();
+            updateProgress();
+            closeAddQuestionModal();
+        }
+
+        // Delete question
+        function deleteQuestion(questionId) {
+            if (!confirm('คุณแน่ใจหรือไม่ที่จะลบคำถามนี้?')) {
+                return;
+            }
+
+            Object.values(questionsData).forEach(category => {
+                category.questions = category.questions.filter(q => q.id !== questionId);
+            });
+
+            saveQuestionsToStorage();
+            renderQuestionnaire();
+            updateProgress();
+        }
+
+        // Edit question
+        function editQuestion(questionId) {
+            let question = null;
+            Object.values(questionsData).forEach(category => {
+                const found = category.questions.find(q => q.id === questionId);
+                if (found) question = found;
+            });
+
+            if (!question) return;
+
+            const newText = prompt('แก้ไขคำถาม:', question.text);
+            if (newText && newText.trim()) {
+                question.text = newText.trim();
+                saveQuestionsToStorage();
+                renderQuestionnaire();
+            }
+        }
+
+        // Save all answers
+        async function saveAllAnswers() {
+            const saveBtn = document.querySelector('.save-btn');
+            const originalText = saveBtn.innerHTML;
+            
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
+            saveBtn.disabled = true;
+
+            try {
+                // Prepare data for saving
+                const saveData = {
+                    userId: currentUser,
+                    timestamp: new Date().toISOString(),
+                    questionnaire: questionsData,
+                    summary: {
+                        total: 0,
+                        answered: 0,
+                        unanswered: 0,
+                        progress: 0
+                    }
+                };
+
+                // Calculate summary
+                Object.values(questionsData).forEach(category => {
+                    saveData.summary.total += category.questions.length;
+                    saveData.summary.answered += category.questions.filter(q => q.answered).length;
+                });
+                saveData.summary.unanswered = saveData.summary.total - saveData.summary.answered;
+                saveData.summary.progress = saveData.summary.total > 0 ? 
+                    Math.round((saveData.summary.answered / saveData.summary.total) * 100) : 0;
+
+                // Here you would make the actual MongoDB API call
+                // const response = await fetch('/api/questionnaire', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'Authorization': 'Bearer ' + currentUser
+                //     },
+                //     body: JSON.stringify(saveData)
+                // });
+
+                console.log('Data to save to MongoDB:', saveData);
+                console.log('MongoDB Connection String: mongodb+srv://admin:admin@cluster0.49buqjm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                saveBtn.innerHTML = '<i class="fas fa-check"></i> บันทึกสำเร็จ!';
+                saveBtn.style.background = '#27ae60';
+                
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.style.background = '#3498db';
+                    saveBtn.disabled = false;
+                }, 2000);
+
+            } catch (error) {
+                console.error('Save error:', error);
+                saveBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> บันทึกไม่สำเร็จ';
+                saveBtn.style.background = '#e74c3c';
+                
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.style.background = '#3498db';
+                    saveBtn.disabled = false;
+                }, 2000);
+            }
+        }
+
+        // Close modal when clicking outside or pressing Escape
+        window.onclick = function(event) {
+            const modal = document.getElementById('addQuestionModal');
+            if (event.target === modal) {
+                closeAddQuestionModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById('addQuestionModal');
+                if (modal.style.display === 'block') {
+                    closeAddQuestionModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
