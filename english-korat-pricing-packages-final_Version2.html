@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แพ็คเกจระบบบริหารจัดการโรงเรียน - English Korat Language School</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .navigation {
+            background: #34495e;
+            padding: 15px 40px;
+            text-align: center;
+        }
+
+        .nav-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .nav-button.active {
+            background: #e74c3c;
+        }
+        
+        .packages-section {
+            padding: 50px 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+        
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .package-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #3498db;
+        }
+        
+        .package-popular {
+            border-color: #e74c3c;
+            background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .package-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .package-name {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .package-price {
+            font-size: 2.5em;
+            color: #e74c3c;
+            font-weight: 900;
+        }
+        
+        .package-duration {
+            background: #3498db;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .features-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        
+        .features-summary .base {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .features-summary .plus {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .milestones {
+            margin: 25px 0;
+        }
+        
+        .milestone {
+            background: #fff;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .milestone h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .milestone p {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .support-section {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .support-section h4 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        
+        .support-list {
+            list-style: none;
+        }
+        
+        .support-list li {
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .support-list li i {
+            color: #27ae60;
+            margin-right: 10px;
+        }
+        
+        .maintenance-section {
+            background: #f8f9fa;
+            padding: 50px 40px;
+            margin-top: 0;
+        }
+        
+        .maintenance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .maintenance-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .maintenance-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .maintenance-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ddd;
+        }
+        
+        .cost-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #e74c3c;
+        }
+        
+        .cost-label {
+            flex: 1;
+        }
+        
+        .cost-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .note h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .note ul {
+            color: #856404;
+            padding-left: 20px;
+        }
+        
+        .note li {
+            margin-bottom: 8px;
+        }
+        
+        .requirements-section {
+            background: #e8f4fd;
+            padding: 40px;
+            margin-top: 0;
+        }
+        
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .requirement-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .requirement-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header, .packages-section, .maintenance-section, .requirements-section {
+                padding: 30px 20px;
+            }
+
+            .navigation {
+                padding: 15px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section-title {
+                font-size: 1.6em;
+            }
+
+            .nav-button {
+                margin: 5px;
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-graduation-cap"></i> English Korat Language School</h1>
+            <p>ระบบบริหารจัดการโรงเรียนสอนภาษาแบบครบวงจร</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button active" onclick="showSection('packages')">
+                <i class="fas fa-box"></i> แพ็คเกจ & ราคา
+            </button>
+            <button class="nav-button" onclick="showSection('questionnaire')">
+                <i class="fas fa-clipboard-question"></i> แบบสอบถาม
+            </button>
+        </div>
+        
+        <!-- Packages Section -->
+        <div id="packages-section" class="packages-section">
+            <h2 class="section-title">แพ็คเกจการพัฒนาระบบ</h2>
+            
+            <div class="packages-grid">
+                <!-- Package Standard (Left) -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3 class="package-name">แพ็คเกจ Standard</h3>
+                        <div class="package-price">40,000 <span style="font-size: 0.4em;">บาท</span></div>
+                        <div class="package-duration">6 สัปดาห์ (2 งวด)</div>
+                    </div>
+                    
+                    <div class="features-summary">
+                        <div class="base">
+                            ฟีเจอร์หลัก: ระบบลงทะเบียน, สอบวัดระดับ (Schedulista), ออกบิลเอง, จัดกลุ่มเรียน, คอนเฟิร์มคลาส, คำนวณค่าจ้าง, รายงานผล, พอร์ทัลนักเรียน, เช็คสลิป
+                        </div>
+                        <div class="plus">
+                            + ระบบ Check-in เข้าเรียน<br>
+                            + รองรับ 2 ภาษา (ไทย/อังกฤษ)
+                        </div>
+                    </div>
+                    
+                    <div class="milestones">
+                        <h4 style="margin-bottom: 15px;"><i class="fas fa-road"></i> Milestone การส่งมอบ</h4>
+                        <div class="milestone">
+                            <h4>งวดที่ 1 (50% - 20,000 บาท)</h4>
+                            <p>3 สัปดาห์: สรุป requirement + UX wireframe + Setup project + เชื่อมต่อ Schedulista API + ระบบลงทะเบียน + อัปโหลดบัตร ปชช</p>
+                        </div>
+                        <div class="milestone">
+                            <h4>งวดที่ 2 (50% - 20,000 บาท)</h4>
+                            <p>3 สัปดาห์: ระบบ check-in + ออกบิล (เขียนเอง) + Export PDF + Sync สถานะสอบ + แจ้งเตือน LINE + Testing + ส่งมอบ</p>
+                        </div>
+                    </div>
+                    
+                    <div class="support-section">
+                        <h4><i class="fas fa-headset"></i> Service Support (30 วัน)</h4>
+                        <ul class="support-list">
+                            <li><i class="fas fa-check"></i> Bug Fix และแก้ไขปัญหาระบบ</li>
+                            <li><i class="fas fa-check"></i> คู่มือการใช้งานและ Training</li>
+                            <li><i class="fas fa-check"></i> Technical Support ผ่าน LINE/Email</li>
+                            <li><i class="fas fa-check"></i> Minor Updates และปรับแต่งเล็กน้อย</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Package Premium (Right) - Popular -->
+                <div class="package-card package-popular">
+                    <div class="popular-badge">แนะนำ</div>
+                    <div class="package-header">
+                        <h3 class="package-name">แพ็คเกจ Premium</h3>
+                        <div class="package-price">50,000 <span style="font-size: 0.4em;">บาท</span></div>
+                        <div class="package-duration">8 สัปดาห์ (3 งวด)</div>
+                    </div>
+                    
+                    <div class="features-summary">
+                        <div class="base">
+                            ฟีเจอร์เดียวกับ Standard Package
+                        </div>
+                        <div class="plus">
+                            + ระบบสร้างลิ้งค์ Zoom อัตโนมัติ<br>
+                            + ระบบประเมินความพึงพอใจครู<br>
+                            + ระบบติดตามลูกค้า (โทรแล้ว/ติดต่อไม่ได้)<br>
+                            + Wave API Integration สำหรับออกบิล
+                        </div>
+                    </div>
+                    
+                    <div class="milestones">
+                        <h4 style="margin-bottom: 15px;"><i class="fas fa-road"></i> Milestone การส่งมอบ</h4>
+                        <div class="milestone">
+                            <h4>งวดที่ 1 (30% - 15,000 บาท)</h4>
+                            <p>2 สัปดาห์: Requirement + wireframe + project setup</p>
+                        </div>
+                        <div class="milestone">
+                            <h4>งวดที่ 2 (40% - 20,000 บาท)</h4>
+                            <p>3-4 สัปดาห์: Core functions (ลงทะเบียน, บิล, check-in, Schedulista sync)</p>
+                        </div>
+                        <div class="milestone">
+                            <h4>งวดที่ 3 (30% - 15,000 บาท)</h4>
+                            <p>2-3 สัปดาห์: Zoom integration + แบบประเมินครู + ติดตามลูกค้า + automation เพิ่มเติม + testing</p>
+                        </div>
+                    </div>
+                    
+                    <div class="support-section">
+                        <h4><i class="fas fa-headset"></i> Service Support (30 วัน)</h4>
+                        <ul class="support-list">
+                            <li><i class="fas fa-check"></i> Bug Fix และแก้ไขปัญหาระบบ</li>
+                            <li><i class="fas fa-check"></i> คู่มือการใช้งานและ Training</li>
+                            <li><i class="fas fa-check"></i> Technical Support ผ่าน LINE/Email</li>
+                            <li><i class="fas fa-check"></i> Minor Updates และปรับแต่งเล็กน้อย</li>
+                            <li><i class="fas fa-star"></i> <strong>Priority Support (ตอบภายใน 4 ชม.)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Package Complete -->
+                <div class="package-card" style="border-color: #9b59b6;">
+                    <div class="package-header">
+                        <h3 class="package-name" style="color: #9b59b6;">แพ็คเกจ Complete</h3>
+                        <div class="package-price" style="color: #9b59b6;">60,000 <span style="font-size: 0.4em;">บาท</span></div>
+                        <div class="package-duration" style="background: #9b59b6;">12 สัปดาห์ (3 งวด)</div>
+                    </div>
+                    
+                    <div class="features-summary">
+                        <div class="base">
+                            ฟีเจอร์เดียวกับ Premium Package
+                        </div>
+                        <div class="plus">
+                            + ระบบหนังสือเอกสาร<br>
+                            + Advanced Reporting & Analytics<br>
+                            + Multi-branch Support<br>
+                            + Custom Dashboard
+                        </div>
+                    </div>
+                    
+                    <div class="milestones">
+                        <h4 style="margin-bottom: 15px;"><i class="fas fa-road"></i> Milestone การส่งมอบ</h4>
+                        <div class="milestone">
+                            <h4>งวดที่ 1 (30% - 18,000 บาท)</h4>
+                            <p>4 สัปดาห์: Requirement + wireframe + project setup + Core development</p>
+                        </div>
+                        <div class="milestone">
+                            <h4>งวดที่ 2 (40% - 24,000 บาท)</h4>
+                            <p>5 สัปดาห์: Core functions + Zoom + ประเมินครู + ติดตามลูกค้า + Advanced features</p>
+                        </div>
+                        <div class="milestone">
+                            <h4>งวดที่ 3 (30% - 18,000 บาท)</h4>
+                            <p>3 สัปดาห์: Multi-branch + Custom dashboard + Full testing + ส่งมอบ</p>
+                        </div>
+                    </div>
+                    
+                    <div class="support-section">
+                        <h4><i class="fas fa-headset"></i> Service Support (30 วัน)</h4>
+                        <ul class="support-list">
+                            <li><i class="fas fa-check"></i> ฟีเจอร์เดียวกับ Premium</li>
+                            <li><i class="fas fa-star"></i> <strong>24/7 Priority Support</strong></li>
+                            <li><i class="fas fa-star"></i> <strong>On-site Training (1 วัน)</strong></li>
+                            <li><i class="fas fa-star"></i> <strong>Monthly Health Check</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Maintenance Section -->
+        <div id="maintenance-section" class="maintenance-section">
+            <h2 class="section-title">ค่าใช้จ่าย Maintenance หลัง Production</h2>
+            
+            <div class="maintenance-grid">
+                <!-- Server & Hosting -->
+                <div class="maintenance-card">
+                    <h3><i class="fas fa-server"></i> ค่า Server & Cloud</h3>
+                    <div class="cost-item">
+                        <span class="cost-label">AWS EC2 t3.small (2 vCPU, 2GB RAM)</span>
+                        <span class="cost-value">850 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">RDS MySQL (20GB)</span>
+                        <span class="cost-value">700 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">S3 Storage (5GB)</span>
+                        <span class="cost-value">70 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">CloudFront CDN</span>
+                        <span class="cost-value">180 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label"><strong>รวมค่า Cloud (เดือน)</strong></span>
+                        <span class="cost-value">~1,800 บาท</span>
+                    </div>
+                </div>
+                
+                <!-- Domain & SSL -->
+                <div class="maintenance-card">
+                    <h3><i class="fas fa-globe"></i> ค่า Domain & Security</h3>
+                    <div class="cost-item">
+                        <span class="cost-label">Domain .com (ต่อปี)</span>
+                        <span class="cost-value">450 บาท</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">SSL Certificate</span>
+                        <span class="cost-value">ฟรี</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Backup Service</span>
+                        <span class="cost-value">300 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label"><strong>รวมค่า Domain (เดือน)</strong></span>
+                        <span class="cost-value">~340 บาท</span>
+                    </div>
+                </div>
+                
+                <!-- Third-party Services -->
+                <div class="maintenance-card">
+                    <h3><i class="fas fa-plug"></i> ค่าบริการภายนอก</h3>
+                    <div class="cost-item">
+                        <span class="cost-label">LINE Messaging API (เพิ่มขึ้น)</span>
+                        <span class="cost-value">800-1,200 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Google Sheets API</span>
+                        <span class="cost-value">ฟรี</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Schedulista API</span>
+                        <span class="cost-value">ตามแพ็คเกจที่ใช้</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Zoom Pro (Premium Package)</span>
+                        <span class="cost-value">530 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label"><strong>รวมค่าบริการ (เดือน)</strong></span>
+                        <span class="cost-value">~1,300-1,800 บาท</span>
+                    </div>
+                </div>
+                
+                <!-- Total Cost -->
+                <div class="maintenance-card" style="border: 2px solid #e74c3c;">
+                    <h3><i class="fas fa-calculator"></i> สรุปค่าใช้จ่ายรวม</h3>
+                    <div class="cost-item">
+                        <span class="cost-label">ค่า Cloud Server</span>
+                        <span class="cost-value">1,800 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">ค่า Domain + Backup</span>
+                        <span class="cost-value">340 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">ค่าบริการภายนอก</span>
+                        <span class="cost-value">1,300-1,800 บาท/เดือน</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label"><strong>รวมทั้งหมด (เดือน)</strong></span>
+                        <span class="cost-value" style="color: #e74c3c; font-size: 1.3em;">~3,440-3,940 บาท</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enhanced Note Section -->
+            <div class="note">
+                <h4><i class="fas fa-info-circle"></i> หมายเหตุสำคัญ</h4>
+                <ul>
+                    <li><strong>LINE API เพิ่มขึ้น</strong>: เนื่องจากมี notification หลากหลาย (promotion, เตือนนักเรียน, แจ้งผู้ปกครอง, แจ้งตารางเรียน, ติดตามลูกค้า)</li>
+                    <li><strong>การปรับขนาด Server</strong>: สามารถ Scale Up/Down ตามจำนวนผู้ใช้จริง เช่น เพิ่มเป็น t3.medium เมื่อมีนักเรียน >200 คน</li>
+                    <li><strong>ลดค่าใช้จ่าย</strong>: ใช้ VPS แทน AWS ลดเหลือ ~1,500-2,200 บาท/เดือน</li>
+                    <li><strong>Data Analytics</strong>: รายงานการใช้งานและสถิติต่างๆ จะช่วยวิเคราะห์ ROI ของระบบ</li>
+                    <li><strong>Security & Compliance</strong>: มีระบบ Backup อัตโนมัติทุกวัน และเข้ารหัสข้อมูลตาม PDPA</li>
+                    <li><strong>Performance Monitoring</strong>: ติดตั้งระบบ monitoring เพื่อแจ้งเตือนปัญหาก่อนผู้ใช้พบ</li>
+                    <li><strong>การอัปเดต</strong>: Minor updates ฟรี 3 เดือนแรก, Major updates คิดตาม man-hour จริง</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Requirements Section -->
+        <div id="requirements-section" class="requirements-section">
+            <h2 class="section-title">ข้อกำหนดก่อนเริ่มงาน</h2>
+            
+            <div class="requirements-grid">
+                <div class="requirement-item">
+                    <h4><i class="fas fa-key"></i> API Keys & Integrations</h4>
+                    <p>ต้องได้ API keys ของ Schedulista, Zoom (Premium), LINE Official Account และทดสอบการเชื่อมต่อก่อนเริ่มพัฒนา</p>
+                </div>
+                
+                <div class="requirement-item">
+                    <h4><i class="fas fa-shield-alt"></i> PDPA Compliance</h4>
+                    <p>กำหนด Policy การจัดเก็บข้อมูลส่วนบุคคล การเข้ารหัส และระยะเวลาเก็บรักษาข้อมูลบัตรประชาชน</p>
+                </div>
+                
+                <div class="requirement-item">
+                    <h4><i class="fas fa-users"></i> User Roles & Permissions</h4>
+                    <p>กำหนดสิทธิ์การเข้าถึงสำหรับ Admin, ครู, นักเรียน, ผู้ปกครอง และระดับการอนุมัติในแต่ละฟีเจอร์</p>
+                </div>
+                
+                <div class="requirement-item">
+                    <h4><i class="fas fa-database"></i> Data Migration Plan</h4>
+                    <p>วางแผนการ migrate ข้อมูลเดิมจาก Google Forms และระบบปัจจุบัน รวมทั้งการ cleanup ข้อมูล</p>
+                </div>
+                
+                <div class="requirement-item">
+                    <h4><i class="fas fa-graduation-cap"></i> Training & Change Management</h4>
+                    <p>กำหนดแผนการ training พนักงาน การเปลี่ยนแปลง workflow และระยะเวลา parallel run</p>
+                </div>
+                
+                <div class="requirement-item">
+                    <h4><i class="fas fa-globe"></i> Infrastructure Setup</h4>
+                    <p>เตรียม Domain name, SSL Certificate, Email สำหรับ notifications และ backup strategy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(section) {
+            // Update nav buttons
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if (section === 'questionnaire') {
+                // Redirect to questionnaire page
+                window.location.href = 'english-korat-interactive-questionnaire-fixed.html';
+            }
+            // If packages is selected, we're already on the right page, do nothing
+        }
+    </script>
+</body>
+</html>
