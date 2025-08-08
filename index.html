@@ -143,6 +143,8 @@
         .package-header {
             text-align: center;
             margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
         }
         
         .package-name {
@@ -152,10 +154,51 @@
             font-weight: 700;
         }
         
+        .package-subtitle {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .features-summary {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+        
+        .features-summary .base {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .features-summary .plus {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .pricing-details {
+            background: #e8f6f3;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .pricing-details h4 {
+            color: #27ae60;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
         .package-price {
-            font-size: 2.5em;
+            font-size: 2.2em;
             color: #e74c3c;
             font-weight: 900;
+            margin-bottom: 10px;
         }
         
         .package-duration {
@@ -164,26 +207,7 @@
             padding: 8px 20px;
             border-radius: 20px;
             display: inline-block;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-        
-        .features-summary {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-size: 1.1em;
-            line-height: 1.8;
-        }
-        
-        .features-summary .base {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .features-summary .plus {
-            color: #e74c3c;
+            margin: 10px 0;
             font-weight: 600;
         }
         
@@ -397,29 +421,17 @@
                 <div class="package-card">
                     <div class="package-header">
                         <h3 class="package-name">แพ็คเกจ Standard</h3>
-                        <div class="package-price">40,000 <span style="font-size: 0.4em;">บาท</span></div>
-                        <div class="package-duration">6 สัปดาห์ (2 งวด)</div>
+                        <p class="package-subtitle">ระบบพื้นฐานครบครัน สำหรับโรงเรียนขนาดเล็ก-กลาง</p>
                     </div>
                     
                     <div class="features-summary">
                         <div class="base">
-                            ฟีเจอร์หลัก: ระบบลงทะเบียน, สอบวัดระดับ (Schedulista), ออกบิลเอง, จัดกลุ่มเรียน, คอนเฟิร์มคลาส, คำนวณค่าจ้าง, รายงานผล, พอร์ทัลนักเรียน, เช็คสลิป
+                            <strong>ฟีเจอร์หลัก:</strong> ระบบลงทะเบียน, สอบวัดระดับ (Schedulista), ออกบิลเอง, จัดกลุ่มเรียน, คอนเฟิร์มคลาส, คำนวณค่าจ้าง, รายงานผล, พอร์ทัลนักเรียน, เช็คสลิป
                         </div>
                         <div class="plus">
+                            <strong>ฟีเจอร์พิเศษ:</strong><br>
                             + ระบบ Check-in เข้าเรียน<br>
                             + รองรับ 2 ภาษา (ไทย/อังกฤษ)
-                        </div>
-                    </div>
-                    
-                    <div class="milestones">
-                        <h4 style="margin-bottom: 15px;"><i class="fas fa-road"></i> Milestone การส่งมอบ</h4>
-                        <div class="milestone">
-                            <h4>งวดที่ 1 (50% - 20,000 บาท)</h4>
-                            <p>3 สัปดาห์: สรุป requirement + UX wireframe + Setup project + เชื่อมต่อ Schedulista API + ระบบลงทะเบียน + อัปโหลดบัตร ปชช</p>
-                        </div>
-                        <div class="milestone">
-                            <h4>งวดที่ 2 (50% - 20,000 บาท)</h4>
-                            <p>3 สัปดาห์: ระบบ check-in + ออกบิล (เขียนเอง) + Export PDF + Sync สถานะสอบ + แจ้งเตือน LINE + Testing + ส่งมอบ</p>
                         </div>
                     </div>
                     
@@ -432,6 +444,23 @@
                             <li><i class="fas fa-check"></i> Minor Updates และปรับแต่งเล็กน้อย</li>
                         </ul>
                     </div>
+
+                    <div class="pricing-details">
+                        <h4><i class="fas fa-tag"></i> รายละเอียดราคาและงวดงาน</h4>
+                        <div class="package-price">40,000 <span style="font-size: 0.4em;">บาท</span></div>
+                        <div class="package-duration">6 สัปดาห์ (2 งวด)</div>
+                        
+                        <div class="milestones">
+                            <div class="milestone">
+                                <h4>งวดที่ 1 (50% - 20,000 บาท)</h4>
+                                <p>3 สัปดาห์: สรุป requirement + UX wireframe + Setup project + เชื่อมต่อ Schedulista API + ระบบลงทะเบียน + อัปโหลดบัตร ปชช</p>
+                            </div>
+                            <div class="milestone">
+                                <h4>งวดที่ 2 (50% - 20,000 บาท)</h4>
+                                <p>3 สัปดาห์: ระบบ check-in + ออกบิล (เขียนเอง) + Export PDF + Sync สถานะสอบ + แจ้งเตือน LINE + Testing + ส่งมอบ</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Package Premium (Right) - Popular -->
@@ -439,35 +468,19 @@
                     <div class="popular-badge">แนะนำ</div>
                     <div class="package-header">
                         <h3 class="package-name">แพ็คเกจ Premium</h3>
-                        <div class="package-price">50,000 <span style="font-size: 0.4em;">บาท</span></div>
-                        <div class="package-duration">8 สัปดาห์ (3 งวด)</div>
+                        <p class="package-subtitle">ระบบขั้นสูงพร้อม Automation เพิ่มประสิทธิภาพ</p>
                     </div>
                     
                     <div class="features-summary">
                         <div class="base">
-                            ฟีเจอร์เดียวกับ Standard Package
+                            <strong>ฟีเจอร์หลัก:</strong> ฟีเจอร์เดียวกับ Standard Package ครบทุกอย่าง
                         </div>
                         <div class="plus">
+                            <strong>ฟีเจอร์พิเศษเพิ่มเติม:</strong><br>
                             + ระบบสร้างลิ้งค์ Zoom อัตโนมัติ<br>
                             + ระบบประเมินความพึงพอใจครู<br>
                             + ระบบติดตามลูกค้า (โทรแล้ว/ติดต่อไม่ได้)<br>
                             + Wave API Integration สำหรับออกบิล
-                        </div>
-                    </div>
-                    
-                    <div class="milestones">
-                        <h4 style="margin-bottom: 15px;"><i class="fas fa-road"></i> Milestone การส่งมอบ</h4>
-                        <div class="milestone">
-                            <h4>งวดที่ 1 (30% - 15,000 บาท)</h4>
-                            <p>2 สัปดาห์: Requirement + wireframe + project setup</p>
-                        </div>
-                        <div class="milestone">
-                            <h4>งวดที่ 2 (40% - 20,000 บาท)</h4>
-                            <p>3-4 สัปดาห์: Core functions (ลงทะเบียน, บิล, check-in, Schedulista sync)</p>
-                        </div>
-                        <div class="milestone">
-                            <h4>งวดที่ 3 (30% - 15,000 บาท)</h4>
-                            <p>2-3 สัปดาห์: Zoom integration + แบบประเมินครู + ติดตามลูกค้า + automation เพิ่มเติม + testing</p>
                         </div>
                     </div>
                     
@@ -481,41 +494,46 @@
                             <li><i class="fas fa-star"></i> <strong>Priority Support (ตอบภายใน 4 ชม.)</strong></li>
                         </ul>
                     </div>
+
+                    <div class="pricing-details">
+                        <h4><i class="fas fa-tag"></i> รายละเอียดราคาและงวดงาน</h4>
+                        <div class="package-price">50,000 <span style="font-size: 0.4em;">บาท</span></div>
+                        <div class="package-duration">8 สัปดาห์ (3 งวด)</div>
+                        
+                        <div class="milestones">
+                            <div class="milestone">
+                                <h4>งวดที่ 1 (30% - 15,000 บาท)</h4>
+                                <p>2 สัปดาห์: Requirement + wireframe + project setup</p>
+                            </div>
+                            <div class="milestone">
+                                <h4>งวดที่ 2 (40% - 20,000 บาท)</h4>
+                                <p>3-4 สัปดาห์: Core functions (ลงทะเบียน, บิล, check-in, Schedulista sync)</p>
+                            </div>
+                            <div class="milestone">
+                                <h4>งวดที่ 3 (30% - 15,000 บาท)</h4>
+                                <p>2-3 สัปดาห์: Zoom integration + แบบประเมินครู + ติดตามลูกค้า + automation เพิ่มเติม + testing</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Package Complete -->
                 <div class="package-card" style="border-color: #9b59b6;">
                     <div class="package-header">
                         <h3 class="package-name" style="color: #9b59b6;">แพ็คเกจ Complete</h3>
-                        <div class="package-price" style="color: #9b59b6;">60,000 <span style="font-size: 0.4em;">บาท</span></div>
-                        <div class="package-duration" style="background: #9b59b6;">12 สัปดาห์ (3 งวด)</div>
+                        <p class="package-subtitle">ระบบระดับองค์กร รองรับหลายสาขา พร้อม Analytics ขั้นสูง</p>
                     </div>
                     
                     <div class="features-summary">
                         <div class="base">
-                            ฟีเจอร์เดียวกับ Premium Package
+                            <strong>ฟีเจอร์หลัก:</strong> ฟีเจอร์เดียวกับ Premium Package ครบทุกอย่าง
                         </div>
                         <div class="plus">
+                            <strong>ฟีเจอร์ระดับองค์กร:</strong><br>
                             + ระบบหนังสือเอกสาร<br>
                             + Advanced Reporting & Analytics<br>
                             + Multi-branch Support<br>
-                            + Custom Dashboard
-                        </div>
-                    </div>
-                    
-                    <div class="milestones">
-                        <h4 style="margin-bottom: 15px;"><i class="fas fa-road"></i> Milestone การส่งมอบ</h4>
-                        <div class="milestone">
-                            <h4>งวดที่ 1 (30% - 18,000 บาท)</h4>
-                            <p>4 สัปดาห์: Requirement + wireframe + project setup + Core development</p>
-                        </div>
-                        <div class="milestone">
-                            <h4>งวดที่ 2 (40% - 24,000 บาท)</h4>
-                            <p>5 สัปดาห์: Core functions + Zoom + ประเมินครู + ติดตามลูกค้า + Advanced features</p>
-                        </div>
-                        <div class="milestone">
-                            <h4>งวดที่ 3 (30% - 18,000 บาท)</h4>
-                            <p>3 สัปดาห์: Multi-branch + Custom dashboard + Full testing + ส่งมอบ</p>
+                            + Custom Dashboard สำหรับผู้บริหาร
                         </div>
                     </div>
                     
@@ -527,6 +545,27 @@
                             <li><i class="fas fa-star"></i> <strong>On-site Training (1 วัน)</strong></li>
                             <li><i class="fas fa-star"></i> <strong>Monthly Health Check</strong></li>
                         </ul>
+                    </div>
+
+                    <div class="pricing-details">
+                        <h4><i class="fas fa-tag"></i> รายละเอียดราคาและงวดงาน</h4>
+                        <div class="package-price" style="color: #9b59b6;">60,000 <span style="font-size: 0.4em;">บาท</span></div>
+                        <div class="package-duration" style="background: #9b59b6;">12 สัปดาห์ (3 งวด)</div>
+                        
+                        <div class="milestones">
+                            <div class="milestone">
+                                <h4>งวดที่ 1 (30% - 18,000 บาท)</h4>
+                                <p>4 สัปดาห์: Requirement + wireframe + project setup + Core development</p>
+                            </div>
+                            <div class="milestone">
+                                <h4>งวดที่ 2 (40% - 24,000 บาท)</h4>
+                                <p>5 สัปดาห์: Core functions + Zoom + ประเมินครู + ติดตามลูกค้า + Advanced features</p>
+                            </div>
+                            <div class="milestone">
+                                <h4>งวดที่ 3 (30% - 18,000 บาท)</h4>
+                                <p>3 สัปดาห์: Multi-branch + Custom dashboard + Full testing + ส่งมอบ</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
